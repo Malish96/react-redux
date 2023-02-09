@@ -7,6 +7,7 @@ import React, { useEffect, useState } from 'react';
 import { ReactComponent as Cart } from '../../src/assets/cart-lines-1-svgrepo-com.svg';
 import './Welcome.less';
 import { connect } from 'umi';
+import CartDropDown from '@/components/CartDropDown/CartDropDown';
 
 interface WelcomeProps {
   cart: any;
@@ -29,6 +30,7 @@ const Welcome: React.FC<WelcomeProps> = (props) => {
           <Row>
             <p>{_.isEmpty(props.cart) ? '' : props.cart.cart.length}</p>
             <Cart />
+            <CartDropDown />
           </Row>
         </Button>,
       ]}
@@ -40,6 +42,7 @@ const Welcome: React.FC<WelcomeProps> = (props) => {
             <Col className="gutter-row" span={6}>
               <div>
                 <ProductCard
+                  id={product.id}
                   key={product.id}
                   image={product.image}
                   title={product.name}

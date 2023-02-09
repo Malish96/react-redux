@@ -2,7 +2,7 @@ import React from 'react';
 import { Button, Card, Col, Image, Rate, Row } from 'antd';
 import './ProductCard.css';
 import { ReactComponent as HeartIcon } from '../../assets/heart-svgrepo-com.svg';
-import { connect, Dispatch } from 'umi';
+import { connect, Dispatch, Link } from 'umi';
 
 interface ProductCardType {
   image: any;
@@ -13,6 +13,7 @@ interface ProductCardType {
   rateNum: string;
   dispatch: Dispatch;
   cart?: any;
+  id: number;
 }
 
 const ProductCard: React.FC<ProductCardType> = (props) => {
@@ -26,7 +27,9 @@ const ProductCard: React.FC<ProductCardType> = (props) => {
       </div>
       <Image width={150} height={150} src={props.image} />
       <Row>
-        <Col span={21}>{props.title}</Col>
+        <Col span={21}>
+          <Link to={`/product/${props.id}`}> {props.title}</Link>
+        </Col>
         <Col span={3}>{`$${props.price}`}</Col>
       </Row>
       <Row>
@@ -34,22 +37,24 @@ const ProductCard: React.FC<ProductCardType> = (props) => {
         <p>{props.rateNum}</p>
       </Row>
       <h5>{props.description}</h5>
-      <Button
-        className="button-style"
-        onClick={() => {
-          props.dispatch({
-            type: 'cart/addItems',
-            payload: {
-              image: props.image,
-              title: props.title,
-              description: props.description,
-              price: props.price,
-            },
-          });
-        }}
-      >
-        Add to Cart
-      </Button>
+      <Row>
+        <Button
+          className="button-style"
+          onClick={() => {
+            props.dispatch({
+              type: 'cart/addItems',
+              payload: {
+                image: props.image,
+                title: props.title,
+                description: props.description,
+                price: props.price,
+              },
+            });
+          }}
+        >
+          Add to Cart
+        </Button>
+      </Row>
     </Card>
   );
 };
